@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Boy Who Asked Who — Ramana Maharshi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;1,200;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --saffron: #D4660A;
+  --deep-saffron: #A84E06;
+  --gold: #C8973A;
+  --ash: #E8E0D5;
+  --dust: #BEB5A8;
+  --stone: #7A6E65;
+  --earth: #3D342C;
+  --void: #1A1410;
+  --cream: #F5F0E8;
+  --pale-gold: #F0E4C8;
+  --red-hill: #8B3A2A;
+  --smoke: rgba(200,150,58,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--void);
+  color: var(--ash);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* Arunachala mountain silhouette background */
+.mountain-bg {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45vh;
+  background: linear-gradient(180deg, transparent 0%, rgba(139,58,42,0.06) 60%, rgba(139,58,42,0.15) 100%);
+  clip-path: polygon(0% 100%, 5% 78%, 12% 65%, 20% 55%, 28% 62%, 35% 40%, 42% 52%, 50% 25%, 58% 48%, 65% 38%, 72% 55%, 80% 60%, 88% 70%, 95% 78%, 100% 82%, 100% 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Top ambient glow */
+.top-glow {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(212,102,10,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Header */
+header {
+  position: relative;
+  z-index: 10;
+  padding: 3rem 4rem 2rem;
+  border-bottom: 1px solid rgba(200,150,58,0.15);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  animation: fadeDown 1.2s ease both;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header-left {}
+.header-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--saffron);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.header-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--pale-gold);
+  letter-spacing: -0.02em;
+}
+.header-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+.header-subtitle {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: var(--stone);
+  font-weight: 200;
+  letter-spacing: 0.04em;
+}
+
+.header-right {
+  text-align: right;
+}
+.birth-detail {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--stone);
+  letter-spacing: 0.15em;
+  line-height: 1.8;
+}
+.birth-detail span {
+  color: var(--gold);
+}
+
+/* Nav tabs */
+.nav-tabs {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 0;
+  padding: 0 4rem;
+  border-bottom: 1px solid rgba(200,150,58,0.1);
+  animation: fadeDown 1.2s 0.1s ease both;
+}
+.nav-tab {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s;
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+}
+.nav-tab:hover { color: var(--gold); }
+.nav-tab.active {
+  color: var(--saffron);
+  border-bottom: 1px solid var(--saffron);
+}
+
+/* Main layout */
+main {
+  position: relative;
+  z-index: 10;
+  padding: 3rem 4rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Panels */
+.panel {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: riseIn 0.8s ease forwards;
+}
+@keyframes riseIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Grid layouts */
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+.grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+.grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+/* Card base */
+.card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(200,150,58,0.12);
+  border-radius: 2px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.card:hover { border-color: rgba(200,150,58,0.28); }
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 100%;
+  background: linear-gradient(180deg, var(--saffron) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover::before { opacity: 1; }
+
+.card-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 1rem;
+}
+.card-label .dot {
+  display: inline-block;
+  width: 5px; height: 5px;
+  background: var(--saffron);
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Quote card */
+.quote-card {
+  background: rgba(212,102,10,0.06);
+  border: 1px solid rgba(212,102,10,0.2);
+}
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--pale-gold);
+  letter-spacing: 0.01em;
+}
+.quote-attr {
+  margin-top: 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--saffron);
+  letter-spacing: 0.2em;
+}
+
+/* Timeline */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(200,150,58,0.08);
+  cursor: pointer;
+  transition: background 0.2s;
+  border-radius: 2px;
+  padding-left: 0.5rem;
+}
+.timeline-item:hover { background: rgba(212,102,10,0.05); }
+.timeline-item:last-child { border-bottom: none; }
+.timeline-year {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--saffron);
+  min-width: 36px;
+  padding-top: 2px;
+}
+.timeline-dot {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+  position: relative;
+}
+.timeline-dot::after {
+  content: '';
+  position: absolute;
+  top: 6px; left: 2px;
+  width: 1px; height: 40px;
+  background: linear-gradient(180deg, rgba(200,150,58,0.3), transparent);
+}
+.timeline-item:last-child .timeline-dot::after { display: none; }
+.timeline-content {}
+.timeline-event {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--ash);
+  font-weight: 400;
+  line-height: 1.3;
+}
+.timeline-desc {
+  font-size: 0.8rem;
+  color: var(--stone);
+  margin-top: 2px;
+  line-height: 1.4;
+  font-weight: 200;
+}
+
+/* Stat cards */
+.stat-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(200,150,58,0.1);
+  border-radius: 2px;
+  padding: 1.2rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-unit {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--saffron);
+  letter-spacing: 0.2em;
+  display: block;
+  margin-top: 4px;
+}
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--stone);
+  margin-top: 6px;
+  font-weight: 200;
+}
+
+/* Teaching card */
+.teaching-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(200,150,58,0.08);
+}
+.teaching-item:last-child { border-bottom: none; }
+.teaching-q {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--pale-gold);
+  margin-bottom: 0.4rem;
+}
+.teaching-a {
+  font-size: 0.82rem;
+  color: var(--stone);
+  line-height: 1.6;
+  font-weight: 200;
+}
+
+/* Story excerpt */
+.excerpt {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--ash);
+  font-weight: 200;
+  letter-spacing: 0.01em;
+}
+.excerpt .highlight {
+  color: var(--gold);
+  font-style: italic;
+}
+.excerpt .pullquote {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--pale-gold);
+  border-left: 2px solid var(--saffron);
+  padding-left: 1rem;
+  margin: 1.2rem 0;
+  line-height: 1.5;
+}
+
+/* Map/Journey card */
+.journey-path {
+  position: relative;
+  padding: 1rem 0;
+}
+.journey-stop {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  position: relative;
+}
+.journey-icon {
+  width: 28px; height: 28px;
+  border: 1px solid rgba(200,150,58,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--gold);
+  flex-shrink: 0;
+  background: rgba(200,150,58,0.06);
+  font-family: 'Space Mono', monospace;
+}
+.journey-stop-line {
+  position: absolute;
+  left: 14px; top: 35px;
+  width: 1px; height: calc(100% - 10px);
+  background: linear-gradient(180deg, rgba(200,150,58,0.3), transparent);
+}
+.journey-info {}
+.journey-place {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--pale-gold);
+}
+.journey-detail {
+  font-size: 0.75rem;
+  color: var(--stone);
+  font-weight: 200;
+  margin-top: 2px;
+}
+
+/* Arunachala card — special */
+.arunachala-card {
+  background: linear-gradient(135deg, rgba(139,58,42,0.15) 0%, rgba(26,20,16,0) 100%);
+  border: 1px solid rgba(139,58,42,0.35);
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+.mountain-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+.arunachala-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--red-hill);
+  letter-spacing: 0.08em;
+  filter: brightness(1.6);
+}
+.arunachala-sub {
+  font-size: 0.78rem;
+  color: var(--stone);
+  margin-top: 0.5rem;
+  font-weight: 200;
+}
+.arunachala-desc {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--dust);
+  line-height: 1.7;
+  font-weight: 200;
+}
+
+/* Virtues / qualities bars */
+.quality-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(200,150,58,0.06);
+}
+.quality-row:last-child { border: none; }
+.quality-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--ash);
+  min-width: 100px;
+}
+.quality-bar {
+  flex: 1;
+  height: 2px;
+  background: rgba(200,150,58,0.1);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.quality-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--saffron), var(--gold));
+  border-radius: 1px;
+  transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+}
+.quality-pct {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--gold);
+  min-width: 28px;
+  text-align: right;
+}
+
+/* Works section */
+.work-item {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(200,150,58,0.08);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.work-item:last-child { border: none; }
+.work-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--saffron);
+  padding-top: 3px;
+  min-width: 20px;
+}
+.work-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--pale-gold);
+  font-style: italic;
+}
+.work-desc {
+  font-size: 0.75rem;
+  color: var(--stone);
+  margin-top: 2px;
+  font-weight: 200;
+  line-height: 1.4;
+}
+
+/* Flame animation */
+@keyframes flame {
+  0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.9; }
+  50% { transform: scale(1.05) rotate(1deg); opacity: 1; }
+}
+.flame {
+  display: inline-block;
+  animation: flame 3s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+/* Tabs content */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: rgba(200,150,58,0.3); border-radius: 2px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  header { padding: 2rem; flex-direction: column; gap: 1rem; }
+  .nav-tabs { padding: 0 2rem; overflow-x: auto; }
+  main { padding: 2rem; }
+  .grid-3, .grid-2-1, .grid-1-2, .grid-2, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animation delays for panels */
+.panel:nth-child(1) { animation-delay: 0.1s; }
+.panel:nth-child(2) { animation-delay: 0.2s; }
+.panel:nth-child(3) { animation-delay: 0.3s; }
+.panel:nth-child(4) { animation-delay: 0.35s; }
+.panel:nth-child(5) { animation-delay: 0.4s; }
+
+/* Glow pulse for key cards */
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(212,102,10,0.2); }
+  50% { border-color: rgba(212,102,10,0.45); }
+}
+.glow-card {
+  animation: riseIn 0.8s ease forwards, borderGlow 4s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="mountain-bg"></div>
+<div class="top-glow"></div>
+
+<header>
+  <div class="header-left">
+    <div class="header-eyebrow"><span class="flame">🔥</span> &nbsp;The Inner Flame — A Spiritual Chronicle</div>
+    <h1 class="header-title">Ramana<br><em>Maharshi</em></h1>
+    <div class="header-subtitle">Born Venkataraman · Tiruchuzhi to Tiruvannamalai</div>
+  </div>
+  <div class="header-right">
+    <div class="birth-detail">
+      BORN <span>30 Dec 1879</span><br>
+      TIRUCHUZHI<br>
+      TAMIL Nadu<br>
+      <br>
+      LEFT BODY <span>14 Apr 1950</span><br>
+      ARUNACHALA<br>
+      <br>
+      AGE AT AWAKENING <span>16 yrs</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+  <button class="nav-tab" onclick="showTab('story')">The Story</button>
+  <button class="nav-tab" onclick="showTab('journey')">The Journey</button>
+  <button class="nav-tab" onclick="showTab('teachings')">Teachings</button>
+  <button class="nav-tab" onclick="showTab('works')">Works</button>
+</nav>
+
+<main>
+
+<!-- OVERVIEW TAB -->
+<div id="tab-overview" class="tab-content active">
+
+  <!-- Stats row -->
+  <div class="panel grid-4">
+    <div class="stat-card">
+      <div class="stat-num">16</div>
+      <span class="stat-unit">YEARS OLD</span>
+      <div class="stat-label">Age at awakening</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">54</div>
+      <span class="stat-unit">YEARS</span>
+      <div class="stat-label">Time spent at Arunachala</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">70</div>
+      <span class="stat-unit">YEARS</span>
+      <div class="stat-label">Life on earth</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">∞</div>
+      <span class="stat-unit">SILENCE</span>
+      <div class="stat-label">His greatest teaching</div>
+    </div>
+  </div>
+
+  <!-- Quote + Timeline -->
+  <div class="panel grid-2-1">
+    <div>
+      <!-- Main quote -->
+      <div class="card quote-card" style="margin-bottom:1.5rem">
+        <div class="card-label"><span class="dot"></span>The Central Question</div>
+        <div class="quote-text">"Who am I?" — posed not as a philosophical riddle but as a scalpel, turned inward, to sever the knot between the self and the body.</div>
+        <div class="quote-attr">— RAMANA MAHARSHI · CORE TEACHING</div>
+      </div>
+
+      <!-- Qualities -->
+      <div class="card">
+        <div class="card-label"><span class="dot"></span>Qualities of the Inner Life</div>
+        <div class="quality-row">
+          <div class="quality-name">Stillness</div>
+          <div class="quality-bar"><div class="quality-fill" style="width:0%" data-width="97%"></div></div>
+          <div class="quality-pct">97</div>
+        </div>
+        <div class="quality-row">
+          <div class="quality-name">Compassion</div>
+          <div class="quality-bar"><div class="quality-fill" style="width:0%" data-width="92%"></div></div>
+          <div class="quality-pct">92</div>
+        </div>
+        <div class="quality-row">
+          <div class="quality-name">Detachment</div>
+          <div class="quality-bar"><div class="quality-fill" style="width:0%" data-width="99%"></div></div>
+          <div class="quality-pct">99</div>
+        </div>
+        <div class="quality-row">
+          <div class="quality-name">Clarity</div>
+          <div class="quality-bar"><div class="quality-fill" style="width:0%" data-width="96%"></div></div>
+          <div class="quality-pct">96</div>
+        </div>
+        <div class="quality-row">
+          <div class="quality-name">Ordinariness</div>
+          <div class="quality-bar"><div class="quality-fill" style="width:0%" data-width="85%"></div></div>
+          <div class="quality-pct">85</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>Life Chronicle</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">1879</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-event">Born in Tiruchuzhi</div>
+            <div class="timeline-desc">Named Venkataraman, third son of a village lawyer</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1887</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-event">Father passes away</div>
+            <div class="timeline-desc">Family moves to Madurai</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1895</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-event">First hears of Arunachala</div>
+            <div class="timeline-desc">The name strikes him with inexplicable force</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1896</div>
+          <div class="timeline-dot" style="background:var(--saffron)"></div>
+          <div class="timeline-content">
+            <div class="timeline-event" style="color:var(--gold)">The Death Experience</div>
+            <div class="timeline-desc">Lies on floor, confronts death — awakens to the Self</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1896</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-event">Leaves for Arunachala</div>
+            <div class="timeline-desc">Arrives at Tiruvannamalai, never truly leaves</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1907</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-event">Called Maharshi</div>
+            <div class="timeline-desc">Devotees gather; Ramanasramam takes form</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">1950</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-event">Mahasamadhi</div>
+            <div class="timeline-desc">Leaves the body; a star seen over Arunachala</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arunachala + excerpt -->
+  <div class="panel grid-1-2">
+    <div class="card arunachala-card glow-card">
+      <span class="mountain-icon">⛰</span>
+      <div class="arunachala-name">Arunachala</div>
+      <div class="arunachala-sub">அருணாசலம் · Hill of Fire</div>
+      <div class="arunachala-desc">The sacred red hill at Tiruvannamalai — said to be Shiva himself in the form of fire. Ramana believed it called him before he could understand the call. He would never leave its shadow.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>The Turning Point — Floor of His Uncle's House, Madurai, 1896</div>
+      <div class="excerpt">
+        He lay on the floor — not gently, but because he could not do otherwise — and stretched himself out, arms at his sides, like a man in a coffin.
+        <span class="pullquote">"I am dying," he thought. And then, beneath that thought, something else: "So?"</span>
+        He held that second thing carefully. And from somewhere beneath the floor of all his thoughts, a question surfaced — simple and <span class="highlight">devastating and ancient</span>: Who is it, exactly, who is dying?
+      </div>
+    </div>
+  </div>
+
+</div><!-- end overview tab -->
+
+<!-- STORY TAB -->
+<div id="tab-story" class="tab-content">
+  <div class="panel grid-2">
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>The Quiet Boy</div>
+      <div class="excerpt">
+        In one of Tiruchuzhi's modest streets lived a boy so unremarkable in appearance that neighbours often forgot he had been sitting among them. He was not a bad boy. He was not a particularly good student.
+        <span class="pullquote">"His eyes were somewhere that had no location at all."</span>
+        His brothers argued over cricket, over mangoes, over who had the better marks. Venkataraman watched these arguments with gentle amusement, the way a river watches boats quarrel on its surface.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>The Strange Sleep</div>
+      <div class="excerpt">
+        When his cousins fell upon each other in a heap of limbs and snoring, nothing could wake them. But if you shook Venkataraman hard, he would not stir at all.
+        <span class="pullquote">"His eyes were closed but he was somewhere — or perhaps more precisely he was nowhere, which is a different thing entirely."</span>
+        Nobody thought this was remarkable. Nobody thought to look more carefully.
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="card quote-card">
+      <div class="card-label"><span class="dot"></span>The Death & Awakening — The Pivotal Scene</div>
+      <div class="excerpt" style="column-count:2; column-gap:2rem;">
+        Something moved through him — not from outside, but from somewhere beneath thought. It was not pain exactly. It was the absolute, unambiguous certainty that he was going to die. Not someday. Now.
+        <br><br>
+        He felt it in his chest first, then everywhere. His body seemed to turn to cold water.
+        <span class="pullquote" style="column-span: all; margin: 1rem 0">"He turned attention inward — toward the pure sense of <em>I am</em>, the raw flame of existence before it became entangled with a name or a face or a history."</span>
+        And then something opened. Something that could not die because it had never been born.
+        <br><br>
+        When he rose, the room looked the same. The books on the shelf had not rearranged themselves. The clock was still ticking. But he was different.
+      </div>
+    </div>
+  </div>
+  <div class="panel grid-2">
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>After the Awakening</div>
+      <div class="excerpt">
+        He moved through his days as a man moves through a house he has lived in so long he no longer needs to think about the doors. Something in him had settled the only question that had ever mattered.
+        <br><br>
+        He still sat in the back of his classroom. He still lost arguments about cricket to his brothers. But inside, <span class="highlight">a compass had found north</span>.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>The Departure</div>
+      <div class="excerpt">
+        He dressed quietly before the house woke. He left a note that said simply he had gone to find his father.
+        <span class="pullquote">"He meant something more specific than his family would know."</span>
+        He stepped out into the dark street and he walked — with the manner of a man walking toward something that had been waiting for him his whole life.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JOURNEY TAB -->
+<div id="tab-journey" class="tab-content">
+  <div class="panel grid-2">
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>The Physical Journey — 1896</div>
+      <div class="journey-path">
+        <div class="journey-stop">
+          <div class="journey-stop-line"></div>
+          <div class="journey-icon">01</div>
+          <div class="journey-info">
+            <div class="journey-place">Tiruchuzhi</div>
+            <div class="journey-detail">Birthplace · 1879–1887 · Years of quiet ordinariness</div>
+          </div>
+        </div>
+        <div class="journey-stop">
+          <div class="journey-stop-line"></div>
+          <div class="journey-icon">02</div>
+          <div class="journey-info">
+            <div class="journey-place">Madurai</div>
+            <div class="journey-detail">Uncle's house · The death experience · 1896</div>
+          </div>
+        </div>
+        <div class="journey-stop">
+          <div class="journey-stop-line"></div>
+          <div class="journey-icon" style="border-color:var(--saffron); color:var(--saffron)">→</div>
+          <div class="journey-info">
+            <div class="journey-place">Train to Tiruvannamalai</div>
+            <div class="journey-detail">Sold his earrings for fare · Sat in third class · Silent</div>
+          </div>
+        </div>
+        <div class="journey-stop">
+          <div class="journey-stop-line"></div>
+          <div class="journey-icon">03</div>
+          <div class="journey-info">
+            <div class="journey-place">Tiruvannamalai</div>
+            <div class="journey-detail">First sight of Arunachala · Overwhelmed by arrival</div>
+          </div>
+        </div>
+        <div class="journey-stop">
+          <div class="journey-icon" style="border-color:var(--red-hill); color:var(--red-hill); filter:brightness(1.5)">⛰</div>
+          <div class="journey-info">
+            <div class="journey-place" style="color:var(--gold)">Arunachala</div>
+            <div class="journey-detail">Remained here until Mahasamadhi in 1950 · 54 years</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:1.5rem">
+        <div class="card-label"><span class="dot"></span>The Departure Note</div>
+        <div style="background:rgba(200,150,58,0.05); border:1px solid rgba(200,150,58,0.15); border-radius:2px; padding:1.2rem; font-family:'Crimson Pro',serif; font-size:0.9rem; font-style:italic; color:var(--ash); line-height:1.8; margin-top:0.5rem">
+          "I have set out in search of my Father<br>
+          in obedience to his command.<br>
+          This is only embarking on a virtuous enterprise.<br>
+          Therefore, let none grieve over this.<br>
+          No money need be spent in search of me."
+          <div style="margin-top:0.8rem; font-family:'Space Mono',monospace; font-size:0.55rem; color:var(--saffron); font-style:normal; letter-spacing:0.2em">LEFT ON A PIECE OF PAPER · MADURAI · 1896</div>
+        </div>
+      </div>
+
+      <div class="card arunachala-card">
+        <div class="arunachala-name" style="font-size:1.4rem">अरुणाचल</div>
+        <div class="arunachala-sub">Arunachala · The Red Mountain · Shiva as Fire</div>
+        <div class="arunachala-desc">
+          "You called me, and so I came." Ramana later described the mountain not as a destination but as a summons. The name had seized his heart years before he understood why. He arrived, and simply never left — not because he stayed, but because leaving would have been absurd.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHINGS TAB -->
+<div id="tab-teachings" class="tab-content">
+  <div class="panel grid-2">
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>Core Teachings</div>
+      <div class="teaching-item">
+        <div class="teaching-q">"Who am I?"</div>
+        <div class="teaching-a">The foundational inquiry. Not a mantra but a sword — to be used inwardly, tracing every thought back to its source, until only the witness remains and even that dissolves.</div>
+      </div>
+      <div class="teaching-item">
+        <div class="teaching-q">Self-enquiry (Atma Vichara)</div>
+        <div class="teaching-a">Turn attention toward the sense of "I" before it becomes "I am this" or "I am that." Abide in that pure, prior sense. This is the direct path.</div>
+      </div>
+      <div class="teaching-item">
+        <div class="teaching-q">The Self is not achieved — it is uncovered</div>
+        <div class="teaching-a">Liberation is not a future state. The Self is always already present. Sadhana is only the removal of the misconception that it is absent.</div>
+      </div>
+      <div class="teaching-item">
+        <div class="teaching-q">Silence as the highest teaching</div>
+        <div class="teaching-a">His most profound transmissions happened in silence. Devotees reported their doubts dissolving simply by sitting in his presence, without a word spoken.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>Selected Utterances</div>
+      <div style="display:flex; flex-direction:column; gap:1rem; margin-top:0.5rem">
+        <div class="card quote-card" style="padding:1rem">
+          <div class="quote-text" style="font-size:1.05rem">"The degree of freedom from unwanted thoughts and the degree of concentration on a single thought are the measures to gauge spiritual progress."</div>
+        </div>
+        <div class="card quote-card" style="padding:1rem">
+          <div class="quote-text" style="font-size:1.05rem">"There is no greater mystery than this — that being the reality we seek to gain reality."</div>
+        </div>
+        <div class="card quote-card" style="padding:1rem">
+          <div class="quote-text" style="font-size:1.05rem">"Your own Self-realisation is the greatest service you can render the world."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>The Three Paths Recognised</div>
+      <div class="grid-3" style="margin-top:0.5rem">
+        <div style="padding:1rem; background:rgba(212,102,10,0.06); border:1px solid rgba(212,102,10,0.15); border-radius:2px">
+          <div style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--pale-gold); margin-bottom:0.5rem">Jnana</div>
+          <div style="font-size:0.8rem; color:var(--stone); line-height:1.6; font-weight:200">The path of knowledge and self-enquiry — his primary and recommended path. Turn inward, trace the "I" to its source.</div>
+        </div>
+        <div style="padding:1rem; background:rgba(200,150,58,0.06); border:1px solid rgba(200,150,58,0.12); border-radius:2px">
+          <div style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--pale-gold); margin-bottom:0.5rem">Bhakti</div>
+          <div style="font-size:0.8rem; color:var(--stone); line-height:1.6; font-weight:200">Devotion to the divine as other. He accepted this too — surrender to God is another name for dissolving the ego.</div>
+        </div>
+        <div style="padding:1rem; background:rgba(139,58,42,0.12); border:1px solid rgba(139,58,42,0.25); border-radius:2px">
+          <div style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--pale-gold); margin-bottom:0.5rem">Yoga</div>
+          <div style="font-size:0.8rem; color:var(--stone); line-height:1.6; font-weight:200">Concentration and stillness of mind. All paths, he said, lead to the same destination — the dissolution of the false self.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORKS TAB -->
+<div id="tab-works" class="tab-content">
+  <div class="panel grid-2">
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>Written Works</div>
+      <div class="work-item">
+        <div class="work-num">01</div>
+        <div>
+          <div class="work-title">Who Am I? (Nan Yar?)</div>
+          <div class="work-desc">His earliest and most direct text on self-enquiry. Written at the request of a devotee around 1902. The entire path distilled to its essence.</div>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">02</div>
+        <div>
+          <div class="work-title">Upadesa Saram (The Essence of Instruction)</div>
+          <div class="work-desc">Thirty verses on the path to liberation. Originally written in Tamil verse; later translated into Sanskrit and other languages.</div>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">03</div>
+        <div>
+          <div class="work-title">Ulladu Narpadu (Forty Verses on Reality)</div>
+          <div class="work-desc">A philosophical masterwork on the nature of Reality and the Self. Considered his most profound written teaching.</div>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">04</div>
+        <div>
+          <div class="work-title">Aksharamanamalai (Marital Garland of Letters)</div>
+          <div class="work-desc">108 devotional verses addressed to Arunachala, composed spontaneously as he walked around the sacred hill. Deeply personal.</div>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-num">05</div>
+        <div>
+          <div class="work-title">Talks with Sri Ramana Maharshi</div>
+          <div class="work-desc">Compiled by devotees from recorded conversations — perhaps the most accessible entry point into his teaching for modern readers.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label"><span class="dot"></span>Legacy & Influence</div>
+      <div class="excerpt" style="font-size:0.85rem; line-height:1.9">
+        Ramana Maharshi taught without seeking students. He prescribed no elaborate rituals, demanded no renunciations, and charged nothing. He simply sat — and people came from across the world to sit near him.
+        <br><br>
+        Among those drawn to Arunachala: the philosopher Paul Brunton, who wrote <span class="highlight">A Search in Secret India</span> and introduced Ramana to the Western world; Carl Jung, who studied his teachings from afar; and Somerset Maugham, who fictionalised him as the sage in <span class="highlight">The Razor's Edge</span>.
+        <br><br>
+        His teaching of self-enquiry continues today through teachers in the Advaita Vedanta tradition, through Ramanasramam which remains active at the foot of Arunachala, and through millions of seekers worldwide who take up the single question he considered the only one worth asking.
+      </div>
+      <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid rgba(200,150,58,0.1)">
+        <div class="card-label"><span class="dot"></span>The Ashram Today</div>
+        <div style="font-size:0.8rem; color:var(--stone); line-height:1.7; font-weight:200">Ramanasramam at Tiruvannamalai remains a living spiritual institution. The samadhi shrine, the meditation halls, the mountain circumambulation (girivalam) on full moon nights — all continue as they did in his lifetime.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// Tab switching
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  // Re-trigger bar animations when overview tab shown
+  if (id === 'overview') animateBars();
+}
+
+// Animate quality bars on load
+function animateBars() {
+  setTimeout(() => {
+    document.querySelectorAll('.quality-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width;
+    });
+  }, 400);
+}
+animateBars();
+
+// Animate panels on tab switch
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab-content.active .panel').forEach((p, i) => {
+      p.style.animation = 'none';
+      p.offsetHeight;
+      p.style.animation = `riseIn 0.7s ${i * 0.08}s ease forwards`;
+      p.style.opacity = 0;
+    });
+  });
+});
+</script>
+
+</body>
+</html>
