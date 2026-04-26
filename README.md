@@ -1,2 +1,2 @@
 # Arunachala_Ramana
-About Shri Ramana Maharshi
+Write a short, emotionally engaging story about the childhood of Ramana Maharshi, born as Venkataraman in a small South Indian town. Show him as a quiet, ordinary boy who isn’t particularly interested in studies but has a deep, unexplained inner stillness. Include a turning point where he experiences a sudden and intense fear of death, leading him to lie down and introspect deeply. Describe how this moment transforms him, awakening a profound realization about the true self beyond the body. End the story with his silent determination to leave home and seek the sacred Arunachala, hinting at his future as a great sage.
